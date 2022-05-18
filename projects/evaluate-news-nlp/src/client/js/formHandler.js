@@ -1,6 +1,7 @@
 function handleSubmit(event) {
+
     event.preventDefault()
-    
+
     //pull elements to update for sentiment analysis
     let agreementTxt = document.getElementById('agreement');
     let subjectivityTxt = document.getElementById('subjectivity');
@@ -9,9 +10,17 @@ function handleSubmit(event) {
     let url = document.getElementById('url');
 
     //verify a url was put into the form field
-    Client.checkForURL(url)
-    
-    
+    Client.checkForURL(url);
+
+    postData('http://localhost:8081/call', url)
+    .then(manageErrors(res)
+    .then(function(res) {
+        agreementTxt.insertAdjacentHTML(beforeend, res.agreement)
+        subjectivityTxt.insertAdjacentHTML(beforeend, res.subjectivity)
+        confidenceTxt.insertAdjacentHTML(beforeend, res.confidence)
+        ironyTxt.insertAdjacentHTML(beforeend, res.irony)
+    });
+};
 /* Function to POST data - recycled from weather app */
     const postData = async (url = '', data = {}) => {
         const response = await fetch (url, {
@@ -32,8 +41,8 @@ function handleSubmit(event) {
         }
     };
 
-    console.log("::: Form Submitted :::")
-    
+    //console.log("::: Form Submitted :::")
+
     /* for testing
     fetch('http://localhost:8081/test')
     .then(res => res.json())
@@ -41,22 +50,12 @@ function handleSubmit(event) {
         document.getElementById('results').innerHTML = res.message
     })
     */
-    
+
     function manageErrors (response) {
         if(response.status === 404) {
             throw Error(response.statusText);
         }
         return response;
-    }
-    
-    let res = await postData('http://localhost:8081/call', url)
-    .then(manageErrors(res)
-    .then(function(res) {
-        agreementTxt.insertAdjacentHTML(beforeend, res.agreement);
-        subjectivityTxt.insertAdjacentHTML(beforeend, res.subjectivity);
-        confidenceTxt.insertAdjacentHTML(beforeend, res.confidence);
-        ironyTxt.insertAdjacentHTML(beforeend, res.irony);
-    });
-}
+    };
 
-export { handleSubmit }
+export { handleSubmit };

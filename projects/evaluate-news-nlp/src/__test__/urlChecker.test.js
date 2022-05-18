@@ -1,4 +1,5 @@
-import {checkForName } from "../src/client/js/urlChecker"
+/** * @jest-environment jsdom */
+const checkForURL = require('../client/js/urlChecker')
 
 describe ("Testing the url check functionality", () => {
   test("Testing the checkForURL() function", () => {
@@ -15,5 +16,5 @@ describe ("Testing the url check functionality", () => {
   test("Testing the url is null", () => {
     const url = 'adsfafdhadsf';
     expect(urlChecker(url)).toBeFalsy();
-  });  
+  });
 });
