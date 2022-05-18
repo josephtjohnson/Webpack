@@ -2,7 +2,7 @@
 const dotenv = require('dotenv');
 dotenv.config();
 const apiKey = process.env.API_KEY;
-const endpoint = process.env.END_POINT;
+const endpoint = process.env.API_ENDPOINT;
 console.log(`Your API key is ${process.env.API_KEY}`);
 
 const path = require('path')
