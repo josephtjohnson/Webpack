@@ -50,7 +50,7 @@ function handleSubmit(event) {
         return response;
     }
     
-    let analysis = await postData('http://localhost:8081/call', url)
+    let res = await postData('http://localhost:8081/call', url)
     .then(manageErrors(res)
     .then(function(res) {
         agreementTxt.insertAdjacentHTML(beforeend, res.agreement);
