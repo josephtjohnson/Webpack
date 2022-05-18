@@ -8,9 +8,8 @@ function handleSubmit(event) {
     let ironyTxt = document.getElementById('irony');
     let url = document.getElementById('url');
 
-    // check what text was put into the form field
-    //let text = document.getElementById('text').value
-    //Client.checkForName(text)
+    //verify a url was put into the form field
+    Client.checkForURL(url)
     
     
 /* Function to POST data - recycled from weather app */
