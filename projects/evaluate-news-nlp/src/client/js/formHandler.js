@@ -43,13 +43,21 @@ function handleSubmit(event) {
     })
     */
     
-    let analysis = await postData ('http://localhost:8081/apicall')
+    function manageErrors (response) {
+        if(response.status === 404) {
+            throw Error(response.statusText);
+        }
+        return response;
+    }
+    
+    let analysis = await postData('http://localhost:8081/call', url)
+    .then(manageErrors(res)
     .then(function(res) {
         agreementTxt.insertAdjacentHTML(beforeend, res.agreement);
         subjectivityTxt.insertAdjacentHTML(beforeend, res.subjectivity);
         confidenceTxt.insertAdjacentHTML(beforeend, res.confidence);
         ironyTxt.insertAdjacentHTML(beforeend, res.irony);
-    })
+    });
 }
 
 export { handleSubmit }
